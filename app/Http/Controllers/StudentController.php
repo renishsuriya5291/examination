@@ -15,7 +15,7 @@ class StudentController extends Controller
     public function RegisterFunc(Request $request)
     {
         // Check if any of the required fields is missing
-        if ($request->input("name") == null || $request->input("email") == null || $request->input("password") == null || $request->input("credits") == null) {
+        if ($request->input("name") == null || $request->input("email") == null || $request->input("password") == null ) {
             return response()->json(['success' => false, 'message' => 'All Fields Are required'], 401);
         }
 
@@ -31,7 +31,11 @@ class StudentController extends Controller
         $newUser->name = $request->input('name');
         $newUser->email = $request->input('email');
         $newUser->password = $request->input('password');
-        $newUser->credits = intval($request->input('credits'));
+        if($request->input('credits') != null){
+            $newUser->credits = intval($request->input('credits'));
+        }else{
+            $newUser->credits = 0;
+        }
 
         // Additional fields and validation can be added as needed
 
@@ -56,6 +60,7 @@ class StudentController extends Controller
                 $encryptedString = Crypt::encrypt($originalString);
 
                 $response = [
+                    'userId' => $existingUser->id,
                     'email' => $existingUser->email,
                     'name' => $existingUser->name,
                     'credits' => $existingUser->credits,

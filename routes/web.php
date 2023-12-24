@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RazorpayController;
 
 
 
@@ -32,3 +33,19 @@ Route::post('/admin/update-credits', [AdminController::class, 'updateCredit']);
 Route::get('/', function () {
     return view('home');
 });
+
+Route::get('/register', function () {
+    return view('register');
+});
+Route::get('/login', function () {
+    return view('login');
+});
+
+Route::get('/results', function () {
+    return view('result');
+});
+
+
+Route::get('/razorpay/payment', [RazorpayController::class, 'initiatePayment']);
+Route::post('/razorpay/payment/callback', [RazorpayController::class, 'handlePaymentCallback'])
+    ->name('razorpay.payment.callback');

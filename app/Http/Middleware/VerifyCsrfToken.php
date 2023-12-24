@@ -20,6 +20,8 @@ class VerifyCsrfToken extends Middleware
         '/admin/login',
         '/admin/users-list',
         '/admin/update-credits',
-        '/stu/showResult'
+        '/stu/showResult',
+        '/razorpay/payment',
+        '/razorpay/payment/callback'
     ];
 }
