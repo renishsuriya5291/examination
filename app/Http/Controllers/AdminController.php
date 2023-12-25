@@ -31,7 +31,8 @@ class AdminController extends Controller
 
                 $response = [
                     'email' => $existingUser->email,
-                    'token' => $encryptedString
+                    'token' => $encryptedString,
+                    'role' => 'admin'
                 ];
 
                 return response()->json(['success' => true, 'message' => 'Login successful', 'User' => $response]);

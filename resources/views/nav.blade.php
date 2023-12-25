@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
     <div class="d-flex nav-div">
-        <a href="/">
+        <a href="/" id="homeLink">
             <img src="Images/main.png" alt="" class="logo_img">
             <span class="navbar-band text-white">Scumeme</span>
         </a>
@@ -13,6 +13,7 @@
         <div class="container" style="font-size: 25px;
         font-weight: bold;
         color: white;">
+        
             <ul class="navbar-nav ml-auto mb-3" style="align-items: center;">
                 <li class="nav-item">
                     <a class="nav-link" href="#">Home</a>
@@ -33,10 +34,20 @@
 
                     <script>
                         var userEmail = localStorage.getItem('userEmail');
+                        var userRole = localStorage.getItem('userRole');
                         if (userEmail == null) {
                             document.write('<a href="/register" style="font-size: 24px;" class="btn btn-sm admin-button">Registration</a>');
                         } else {
-                            document.write('<a href="/results" style="font-size: 24px;" class="btn btn-sm admin-button">Show Results</a>');
+                            if (userRole == "superadmin") {
+                                document.write(
+                                    '<a href="/users" style="font-size: 24px;" class="btn btn-sm admin-button">Users</a>');
+                            } else if (userRole == "admin") {
+                                document.write(
+                                    '<a href="/users" style="font-size: 24px;" class="btn btn-sm admin-button">Users</a>');
+                            } else {
+                                document.write(
+                                    '<a href="/results" style="font-size: 24px;" class="btn btn-sm admin-button">Show Results</a>');
+                            }
                         }
                     </script>
                 </li>
@@ -71,3 +82,29 @@
         </div>
     </div>
 </nav>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get user role from localStorage
+        const userRole = localStorage.getItem('userRole');
+    
+        // Get the anchor element
+        const homeLink = document.getElementById('homeLink');
+    
+        // Update href based on user role
+        switch (userRole) {
+            case 'admin':
+                homeLink.href = '/admin';
+                break;
+            case 'superadmin':
+                homeLink.href = '/superadmin';
+                break;
+            case 'student':
+                homeLink.href = '/student';
+                break;
+            default:
+                // Handle other roles or unexpected values
+                console.error('Invalid user role:', userRole);
+                break;
+        }
+    });
+    </script>

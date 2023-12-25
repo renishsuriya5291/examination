@@ -47,6 +47,19 @@ Route::get('/results', function () {
     return view('result');
 });
 
+Route::get('/admin', function () {
+    return view('admin');
+});
+
+Route::get('/superadmin', function () {
+    return view('superadmin');
+});
+
+Route::get('/users', function () {
+    return view('users');
+});
+
+
 
 Route::get('/razorpay/payment', [RazorpayController::class, 'initiatePayment']);
 Route::post('/razorpay/payment/callback', [RazorpayController::class, 'handlePaymentCallback'])

@@ -49,8 +49,10 @@
                     apiUrl = 'http://localhost:8000/stu/login';
                     break;
                 case 'SuperAdmin':
-                case 'Admin':
                     apiUrl = 'http://localhost:8000/superadmin/login';
+                    break;
+                case 'Admin':
+                    apiUrl = 'http://localhost:8000/admin/login';
                     break;
                 default:
                     // Handle default case if needed
@@ -78,10 +80,23 @@
                         localStorage.setItem('userEmail', formData.email);
                         localStorage.setItem('userToken', data.User.token);
                         localStorage.setItem('userId', data.User.userId);
-                        
-                        // Redirect to another page
-                        window.location.href =
-                            '/'; // Change the URL to the desired page
+                        localStorage.setItem('userRole', data.User.role);
+
+                        switch (data.User.role) {
+                            case 'admin':
+                                window.location.href = '/admin';
+                                break;
+                            case 'student':
+                                window.location.href = '/';
+                                break;
+                            case 'superadmin':
+                                window.location.href = '/superadmin';
+                                break;
+                            default:
+                                // Handle other roles or unexpected values
+                                console.error('Invalid user role:', data.User.role);
+                                break;
+                        }
                     } else {
                         // Display an error message
                         alert('Login failed. ' + data.message);

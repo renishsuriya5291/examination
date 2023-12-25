@@ -64,7 +64,8 @@ class StudentController extends Controller
                     'email' => $existingUser->email,
                     'name' => $existingUser->name,
                     'credits' => $existingUser->credits,
-                    'token' => $encryptedString
+                    'token' => $encryptedString,
+                    'role' => 'student'
                 ];
 
                 return response()->json(['success' => true, 'message' => 'Login successful', 'User' => $response]);
