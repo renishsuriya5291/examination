@@ -197,8 +197,10 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
         <div class="d-flex nav-div">
-            <img src="../Images/main.png" alt="" class="logo_img">
-            <span class="navbar-band text-white">Scumeme</span>
+            <a href="/">
+                <img src="../Images/main.png" alt="" class="logo_img">
+                <span class="navbar-band text-white">Scumeme</span>
+            </a>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -269,13 +271,14 @@
 
 
     <div class="container mt-5 mb-5" style="height: 73vh;">
-        <h5>Please Make Payment to Buy a Credits and view the Result :</h5>
+        <h5>Please Make Payment to Buy a Credits and view the Result :</h5><br>
+        <h5 class="text-danger">Don't Refresh Or press back button</h5>
         <br>
         <form action="{{ route('razorpay.payment.callback') }}" method="POST">
             <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="{{ config('razorpay.key_id') }}"
-                data-amount="59900" data-currency="INR" data-order_id="{{ $orderId }}" data-buttontext="Pay Now"
-                data-name="Suriya" data-description="Payment for credits" data-image="Images/main.png"
-                data-prefill.name="Renish Suriya" data-prefill.email="renishsuriya1441@gmail.com" data-prefill.contact="1234567890"
+                data-amount="1000" data-currency="USD" data-order_id="{{ $orderId }}" data-buttontext="Pay Now"
+                data-name="Scumeme" data-description="Payment for credits" data-image="Images/main.png"
+                data-prefill.name="Scumeme" data-prefill.email="scumeme@gmail.com" data-prefill.contact="1234567890"
                 data-theme.color="#F37254" data-style="btn btn-primary"></script>
             
             <input type="hidden" name="_token" value="{{ csrf_token() }}">

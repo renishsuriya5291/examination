@@ -143,4 +143,26 @@ class StudentController extends Controller
         }
     }
 
+
+    public function fetchCredits(Request $request){
+        if($request->header('token') == null){
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+        $token = $request->header('token');
+        try{
+            $decryptedString = Crypt::decrypt($token);
+
+            $user = Student::where('email', $decryptedString)->first();
+    
+            if (!$user) {
+                return response()->json(['message' => 'Unauthorized'], 401);
+            }
+
+            return response()->json(['success' => true, 'credit' => $user->credits]);
+
+        }catch(Exception $e){
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+    }
+
 }

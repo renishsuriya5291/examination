@@ -1,7 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
     <div class="d-flex nav-div">
-        <img src="Images/main.png" alt="" class="logo_img">
-        <span class="navbar-band text-white">Scumeme</span>
+        <a href="/">
+            <img src="Images/main.png" alt="" class="logo_img">
+            <span class="navbar-band text-white">Scumeme</span>
+        </a>
     </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
         aria-expanded="false" aria-label="Toggle navigation">
@@ -28,12 +30,12 @@
                     <a class="nav-link" href="#">Social BULS</a>
                 </li>
                 <li class="nav-item">
-                    
+
                     <script>
                         var userEmail = localStorage.getItem('userEmail');
-                        if(userEmail == null){
+                        if (userEmail == null) {
                             document.write('<a href="/register" style="font-size: 24px;" class="btn btn-sm admin-button">Registration</a>');
-                        }else{
+                        } else {
                             document.write('<a href="/results" style="font-size: 24px;" class="btn btn-sm admin-button">Show Results</a>');
                         }
                     </script>

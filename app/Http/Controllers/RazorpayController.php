@@ -18,10 +18,10 @@ class RazorpayController extends Controller
 
         $order = $api->order->create([
             'receipt' => 'order_receipt_' . time(),
-            'amount' => 599 * 100, // Amount in paise
-            'currency' => 'INR',
+            'amount' => 1000, // Amount in paise, 1000 paise = 10 USD
+            'currency' => 'USD', // Set currency to USD
             'payment_capture' => 1,
-        ]);
+        ]);        
 
         $orderId = $order->id;
 

@@ -11,7 +11,44 @@
 <div class="container mt-5 mb-4" style="height: 70vh;">
     <!-- Additional Info Section -->
     <div class="d-flex justify-content-end mt-3">
-        <div class="mr-3">Total Credits: 10</div>
+        <div class="mr-3">Total Credits: Fetching...</div>
+        <script>
+            // JavaScript code to handle button click and API request
+            window.addEventListener('load', function() {
+                // Get user token from localStorage
+                var userToken = localStorage.getItem('userToken');
+
+                // Fetch credits from the API
+                fetch('http://localhost:8000/stu/fetchCredit', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'token': userToken,
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Handle the API response data as needed
+                        if (data.success) {
+                            // Update total credits on the page
+                            var totalCreditsElement = document.querySelector(
+                                '.d-flex.justify-content-end.mt-3 .mr-3');
+                            totalCreditsElement.textContent = 'Total Credits: ' + data.credit;
+
+                            // You can also store the credits in a variable if needed elsewhere in your code
+                            // var userCredits = data.credit;
+                        } else {
+                            // Display an error message
+                            alert('Failed to fetch credits. ' + data.message);
+                        }
+                        console.log(data);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+
+        </script>
     </div>
     {{-- <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email address</label>

@@ -13,6 +13,7 @@ Route::post('/stu/register', [StudentController::class, 'RegisterFunc']);
 Route::post('/stu/login', [StudentController::class, 'loginFunc']);
 Route::post('/stu/update-credits', [StudentController::class, 'updateCredit']);
 Route::post('/stu/showResult', [StudentController::class, 'showResult']);
+Route::post('/stu/fetchCredit', [StudentController::class, 'fetchCredits']);
 
 
 // Super Admin Api's 
