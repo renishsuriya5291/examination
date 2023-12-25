@@ -280,13 +280,16 @@
             
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <input type="hidden" name="userid" id="userid">
+            <input type="hidden" name="userToken" id="userToken">
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     // Retrieve user ID from localStorage
                     var userId = localStorage.getItem('userId');
-
+                    var userToken = localStorage.getItem('userToken');
+                    console.log(userId);
                     // Set the value of the hidden input field
                     document.getElementById('userid').value = userId;
+                    document.getElementById('userToken').value = userToken;
                 });
             </script>
         </form>

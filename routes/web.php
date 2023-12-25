@@ -11,6 +11,7 @@ use App\Http\Controllers\RazorpayController;
 // Student Api's
 Route::post('/stu/register', [StudentController::class, 'RegisterFunc']);
 Route::post('/stu/login', [StudentController::class, 'loginFunc']);
+Route::post('/stu/update-credits', [StudentController::class, 'updateCredit']);
 Route::post('/stu/showResult', [StudentController::class, 'showResult']);
 
 

@@ -36,18 +36,22 @@ class RazorpayController extends Controller
         // Handle payment success callback
         // Update your database, mark the payment as successful, etc.
         // Make API request
-        $apiEndpoint = 'http://localhost:8000/superadmin/update-credits';
+        $apiEndpoint = 'http://localhost:8000/stu/update-credits';
 
         // Assuming you have the user ID and credit amount from your payment handling logic
         $userId = intval($request->input("userid")); // Replace with the actual user ID
         $creditAmount = 10; // Replace with the actual credit amount
-
+        $token = $request->input("userToken");
         try {
-            $response = Http::post($apiEndpoint, [
+            $response = Http::withHeaders([
+                'token' =>  $token,
+                'Content-Type'=> 'application/json'
+            ])->post($apiEndpoint, [
                 'userid' => $userId,
                 'credit' => $creditAmount,
             ]);
-
+        
+            print_r($response);
             // Check the response status
             if ($response->successful()) {
                 // API request was successful
