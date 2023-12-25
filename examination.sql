@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 24, 2023 at 02:31 PM
+-- Generation Time: Dec 25, 2023 at 06:57 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -125,7 +125,7 @@ CREATE TABLE `students` (
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `credits` int(11) NOT NULL,
+  `credits` int(11) NOT NULL DEFAULT 0,
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -138,7 +138,11 @@ INSERT INTO `students` (`id`, `name`, `email`, `password`, `credits`, `created_a
 (2, 'name', 'name@gmail.com', 'password', 10, '2023-12-24 11:32:44', '2023-12-24 11:32:44'),
 (3, 'name', 'demo@gmail.com', 'eyJpdiI6IlB1amcyMlBqSk96NGptN084UVk1UWc9PSIsInZhbHVlIjoiUW5naVFsMTg2K3dMRFpudGtBNTErdz09IiwibWFjIjoiYWJkYmUyZjAzMTllZWU1NGE4MDI0OThkMzUxZjRlOTlkNTNlNjAyN2RlODFhYjkwZjAzMTEwZWM3NDkxMzk0NSIsInRhZyI6IiJ9', 10, '2023-12-24 11:39:10', '2023-12-24 11:39:10'),
 (4, 'name', 'demo1@gmail.com', 'eyJpdiI6Ii94ckVXMFZyc0pDQ1QxRFdIeE5pVWc9PSIsInZhbHVlIjoiNGswSWwyWDVlVVN1VnR0dGRhNytEQT09IiwibWFjIjoiNTlmOTAzMmYzNmUyM2Y2MGU3NTU3ZTZjNTUwY2E0ZTkxM2U1ZDUwODZlNWYxODNkYTkwNDhjOTBkMTM2YTZmNiIsInRhZyI6IiJ9', 10, '2023-12-24 11:43:10', '2023-12-24 11:43:10'),
-(5, 'name', 'demo2@gmail.com', 'demo2', 10, '2023-12-24 11:51:31', '2023-12-24 13:17:41');
+(5, 'name', 'demo2@gmail.com', 'demo2', 20, '2023-12-24 11:51:31', '2023-12-25 03:39:55'),
+(6, 'name', 'dfemo2@gmail.com', 'fdemo2', 10, '2023-12-24 18:46:27', '2023-12-24 18:46:27'),
+(7, 'name', 'dfemdo2@gmail.com', 'fddemo2', 0, '2023-12-24 18:46:41', '2023-12-24 18:46:41'),
+(8, 'hey', 'hey@gmail.com', 'hey', 10, '2023-12-24 18:49:15', '2023-12-25 05:56:45'),
+(9, 'df', 'fasdf@fasdf', 'asdfsdf', 0, '2023-12-24 18:53:07', '2023-12-25 05:53:46');
 
 -- --------------------------------------------------------
 
@@ -269,7 +273,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `super_admins`
