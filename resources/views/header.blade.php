@@ -189,6 +189,11 @@
         .nav-link {
             color: white !important;
         }
+
+        .card-body{
+            height: 12rem;
+            overflow: hidden;
+        }
     </style>
 </head>
 
