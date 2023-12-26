@@ -10,7 +10,7 @@
 
 <div class="container mt-5 mb-5">
     <div class="input-group">
-        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+        <input type="search" class="form-control rounded" placeholder="Search By Email OR Phone" aria-label="Search"
             aria-describedby="search-addon" id="searchInput" oninput="searchUsers()"  />
         <button type="button" style="margin-left: 12px;" class="btn btn-outline-primary"
             data-mdb-ripple-init onclick="searchUsers()">Search</button>
@@ -24,8 +24,6 @@
                     <th scope="col">Fullname</th>
                     <th scope="col">Phone</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Created At</th>
-                    <th scope="col">Updated At</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -59,8 +57,6 @@
                     <td>${user.fullname}</td>
                     <td>${user.phone}</td>
                     <td>${user.email}</td>
-                    <td>${user.created_at}</td>
-                    <td>${user.updated_at}</td>
                     <td>
                         <a href="teacher/${user.id}" class="btn btn-primary">
                             <i class="bi bi-pencil"></i> Show
@@ -96,8 +92,6 @@
                         <td>${user.fullname}</td>
                         <td>${user.phone}</td>
                         <td>${user.email}</td>
-                        <td>${user.created_at}</td>
-                        <td>${user.updated_at}</td>
                         <td>
                             <a href="teacher/${user.id}" class="btn btn-primary">
                                 <i class="bi bi-pencil"></i> Show

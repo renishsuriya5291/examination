@@ -29,6 +29,12 @@
             position: relative;
         }
 
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
         .glass-effect-content {
             position: absolute;
             top: 50%;
@@ -190,20 +196,30 @@
             color: white !important;
         }
 
-        .wrapper {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+        .card-body {
+            height: 12rem;
+            overflow: hidden;
+        }
+
+        #name_container {
+            background: #fc937b9e;
+            border-radius: 12px;
+            font-size: 20px;
         }
     </style>
 </head>
 
 <body>
+    <script>
+        var userEmail = localStorage.getItem('userEmail');
+        var userRole = localStorage.getItem('userRole');
+    </script>
+
     <!-- Include the navigation -->
     <div class="wrapper">
         <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
             <div class="d-flex nav-div">
-                <a href="/">
+                <a href="/" id="homeLink">
                     <img src="../Images/main.png" alt="" class="logo_img">
                     <span class="navbar-band text-white">Scumeme</span>
                 </a>
@@ -219,10 +235,18 @@
             color: white;">
                     <ul class="navbar-nav ml-auto mb-3" style="align-items: center;">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Home</a>
+                            <a class="nav-link homeLink" href="#">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Courses</a>
+                            <script>
+                                if (userRole == null) {
+                                    document.write(`<a class="nav-link" href="#"> Course </a>`)
+                                } else if (userRole == "student") {
+                                    document.write(`<a class="nav-link" href="/teacher"> Teachers </a>`)
+                                } else {
+                                    document.write(`<a class="nav-link" href="#"> Course </a>`)
+                                }
+                            </script>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Manit</a>
@@ -231,16 +255,30 @@
                             <a class="nav-link" href="#">Resgaale</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Social BULS</a>
+                            <script>
+                                if (userEmail == null) {
+                                    document.write(`<a class="nav-link" href="/logout">Social Buls</a>`)
+                                } else {
+                                    document.write(`<a class="nav-link" href="/logout">Logout</a>`)
+                                }
+                            </script>
                         </li>
                         <li class="nav-item">
 
                             <script>
-                                var userEmail = localStorage.getItem('userEmail');
                                 if (userEmail == null) {
                                     document.write('<a href="/register" style="font-size: 24px;" class="btn btn-sm admin-button">Registration</a>');
                                 } else {
-                                    document.write('<a href="/results" style="font-size: 24px;" class="btn btn-sm admin-button">Show Results</a>');
+                                    if (userRole == "superadmin") {
+                                        document.write(
+                                            '<a href="/users" style="font-size: 24px;" class="btn btn-sm admin-button">Users</a>');
+                                    } else if (userRole == "admin") {
+                                        document.write(
+                                            '<a href="/users" style="font-size: 24px;" class="btn btn-sm admin-button">Users</a>');
+                                    } else {
+                                        document.write(
+                                            '<a href="/results" style="font-size: 24px;" class="btn btn-sm admin-button">Show Results</a>');
+                                    }
                                 }
                             </script>
                         </li>
@@ -251,7 +289,7 @@
 
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item ">
-                            <a class="nav-link" href="#">Home</a>
+                            <a class="nav-link" href="#">University</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Courses</a>
@@ -269,7 +307,20 @@
                             <a class="nav-link" href="#">Contact Us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Examination</a>
+                            <a class="nav-link" id="name_container" href="#">
+                                <script>
+                                    if (localStorage.getItem("userRole") == null) {
+                                        document.write("Examination")
+                                    } else {
+                                        var userEmail = localStorage.getItem("userEmail")
+                                        var userRole = localStorage.getItem("userRole")
+                                        var username = userEmail.split('@')[0];
+                                        document.write(username)
+                                        document.write(" as ")
+                                        document.write(userRole)
+                                    }
+                                </script>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -307,4 +358,62 @@
 
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get user role from localStorage
+            const userRole = localStorage.getItem('userRole');
+
+            // Get the anchor element
+            const homeLink = document.getElementById('homeLink');
+
+            // Update href based on user role
+            switch (userRole) {
+                case 'admin':
+                    homeLink.href = '/admin';
+                    break;
+                case 'superadmin':
+                    homeLink.href = '/superadmin';
+                    break;
+                case 'student':
+                    homeLink.href = '/';
+                    break;
+                default:
+                    // Handle other roles or unexpected values
+                    console.error('Invalid user role:', userRole);
+                    break;
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get user role from localStorage
+            const userRole = localStorage.getItem('userRole');
+
+            // Get the anchor element
+            const homeLink = document.getElementById('homeLink');
+            const homeLink1 = document.getElementsByClassName('homeLink');
+
+            // Update href based on user role
+            switch (userRole) {
+                case 'admin':
+                    homeLink.href = '/admin';
+                    homeLink1.href = '/admin';
+                    break;
+                case 'superadmin':
+                    homeLink1.href = '/superadmin';
+                    homeLink.href = '/superadmin';
+                    break;
+                case 'student':
+                    homeLink1.href = '/';
+                    homeLink.href = '/';
+                    break;
+                default:
+                    // Handle other roles or unexpected values
+                    console.error('Invalid user role:', userRole);
+                    break;
+            }
+        });
+    </script>
+
     @include('footer')

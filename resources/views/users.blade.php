@@ -4,12 +4,18 @@
 <script>
     var userEmail = localStorage.getItem('userEmail');
     var userRole = localStorage.getItem('userRole');
-    if (userEmail == null && userRole != 'superadmin') {
+    // if (userEmail == null || userRole != 'superadmin') {
+    //     window.location.href = '/login';
+    // }
+    if (userRole == 'admin' || userRole == 'superadmin') {
+
+    } else {
         window.location.href = '/login';
+
     }
 </script>
 
-<div class="container mt-5" >
+<div class="container mt-5">
     <table class="table">
         <thead>
             <tr>
@@ -17,8 +23,6 @@
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Credits</th>
-                <th scope="col">Created At</th>
-                <th scope="col">Updated At</th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -67,8 +71,6 @@
                         <td>${user.name}</td>
                         <td>${user.email}</td>
                         <td>${user.credits}</td>
-                        <td>${user.created_at}</td>
-                        <td>${user.updated_at}</td>
                         <td>
                             <button type="button" class="btn btn-primary" onclick="openEditModal(${user.id})">
                                 <i class="bi bi-pencil"></i> Edit
@@ -120,7 +122,7 @@
         const editForm = document.getElementById('editForm');
         const userId = editForm.querySelector('#userId').value;
         const credits = editForm.querySelector('#exampleInputEmail1').value;
-        
+
         // Send a POST request to the server
         fetch('http://localhost:8000/superadmin/update-credits', {
                 method: 'POST',
@@ -139,7 +141,7 @@
             .then(data => {
                 // Handle the response from the server
                 console.log(data);
-                window.location.href="/users";
+                window.location.href = "/users";
                 // Close the modal after successfully updating credits
                 $('#editModal').modal('hide');
             })

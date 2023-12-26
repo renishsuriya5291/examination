@@ -219,7 +219,7 @@
     <div class="wrapper">
         <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
             <div class="d-flex nav-div">
-                <a href="/">
+                <a href="/" id="homeLink">
                     <img src="../Images/main.png" alt="" class="logo_img">
                     <span class="navbar-band text-white">Scumeme</span>
                 </a>
@@ -235,7 +235,7 @@
             color: white;">
                     <ul class="navbar-nav ml-auto mb-3" style="align-items: center;">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Home</a>
+                            <a class="nav-link homeLink" href="#">Home</a>
                         </li>
                         <li class="nav-item">
                             <script>
@@ -243,6 +243,8 @@
                                     document.write(`<a class="nav-link" href="#"> Course </a>`)
                                 } else if (userRole == "student") {
                                     document.write(`<a class="nav-link" href="/teacher"> Teachers </a>`)
+                                } else {
+                                    document.write(`<a class="nav-link" href="#"> Course </a>`)
                                 }
                             </script>
                         </li>
@@ -253,7 +255,13 @@
                             <a class="nav-link" href="#">Resgaale</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Social BULS</a>
+                            <script>
+                                if (userEmail == null) {
+                                    document.write(`<a class="nav-link" href="/logout">Social Buls</a>`)
+                                } else {
+                                    document.write(`<a class="nav-link" href="/logout">Logout</a>`)
+                                }
+                            </script>
                         </li>
                         <li class="nav-item">
 
@@ -281,7 +289,7 @@
 
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item ">
-                            <a class="nav-link" href="#">Home</a>
+                            <a class="nav-link" href="#">University</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Courses</a>
@@ -340,34 +348,91 @@
 
     </div>
 
-        <script>
-            var idFromLaravel = {{ $id }};
+    <script>
+        var idFromLaravel = {{ $id }};
 
-            fetch(`http://localhost:8000/stu/fetchTeachers/${idFromLaravel}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'token': localStorage.getItem('userToken')
-                        // Include any other headers that your API requires
-                    },
-                    // Include any request body if required by your API
-                    // body: JSON.stringify({ key: 'value' }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Get the tbody element where the data will be inserted
-                    const name = document.getElementById('name');
-                    const phone = document.getElementById('phone');
-                    const email = document.getElementById('email');
-                    name.textContent = data.data.fullname;
-                    phone.textContent = data.data.phone;
-                    email.textContent = data.data.email;
-                    // Iterate through the data and create table rows
-                    console.log(data);
+        fetch(`http://localhost:8000/stu/fetchTeachers/${idFromLaravel}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'token': localStorage.getItem('userToken')
+                    // Include any other headers that your API requires
+                },
+                // Include any request body if required by your API
+                // body: JSON.stringify({ key: 'value' }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Get the tbody element where the data will be inserted
+                const name = document.getElementById('name');
+                const phone = document.getElementById('phone');
+                const email = document.getElementById('email');
+                name.textContent = data.data.fullname;
+                phone.textContent = data.data.phone;
+                email.textContent = data.data.email;
+                // Iterate through the data and create table rows
+                console.log(data);
 
 
-                })
-                .catch(error => console.error('Error fetching data:', error));
-        </script>
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get user role from localStorage
+            const userRole = localStorage.getItem('userRole');
 
-        @include('footer')
+            // Get the anchor element
+            const homeLink = document.getElementById('homeLink');
+
+            // Update href based on user role
+            switch (userRole) {
+                case 'admin':
+                    homeLink.href = '/admin';
+                    break;
+                case 'superadmin':
+                    homeLink.href = '/superadmin';
+                    break;
+                case 'student':
+                    homeLink.href = '/';
+                    break;
+                default:
+                    // Handle other roles or unexpected values
+                    console.error('Invalid user role:', userRole);
+                    break;
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get user role from localStorage
+            const userRole = localStorage.getItem('userRole');
+
+            // Get the anchor element
+            const homeLink = document.getElementById('homeLink');
+            const homeLink1 = document.getElementsByClassName('homeLink');
+
+            // Update href based on user role
+            switch (userRole) {
+                case 'admin':
+                    homeLink.href = '/admin';
+                    homeLink1.href = '/admin';
+                    break;
+                case 'superadmin':
+                    homeLink1.href = '/superadmin';
+                    homeLink.href = '/superadmin';
+                    break;
+                case 'student':
+                    homeLink1.href = '/';
+                    homeLink.href = '/';
+                    break;
+                default:
+                    // Handle other roles or unexpected values
+                    console.error('Invalid user role:', userRole);
+                    break;
+            }
+        });
+    </script>
+
+    @include('footer')

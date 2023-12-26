@@ -5,7 +5,7 @@
 <script>
     var userEmail = localStorage.getItem('userEmail');
     var userRole = localStorage.getItem('userRole');
-    if (userEmail == null && userRole != 'superadmin') {
+    if (userEmail == null || userRole != 'superadmin') {
         window.location.href = '/login';
     }
 </script>

@@ -2,6 +2,15 @@
 @include('header')
 @include('nav')
 
+
+<script>
+    var userEmail = localStorage.getItem('userEmail');
+    var userRole = localStorage.getItem('userRole');
+    if (userEmail == null || userRole != 'admin') {
+        window.location.href = '/login';
+    }
+</script>
+
 <div class="glass-effect">
     <div class="glass-effect-content text-center">
         <button class="button1 btn btn-light" style="background-color: #fff6e7; font-weight: bold;font-size: 23px;">Test

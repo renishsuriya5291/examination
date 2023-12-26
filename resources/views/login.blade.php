@@ -22,7 +22,7 @@
                 <option value="Admin">Admin</option>
             </select>
         </div>
-        <a href="/login"
+        <a href="/register"
             style="text-decoration: none; color: #007bff; display: block; text-align: center; margin-top: 10px;">
             Not Have An Account?
         </a>
