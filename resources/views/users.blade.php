@@ -9,7 +9,7 @@
     }
 </script>
 
-<div class="container mt-5" style="height: 70vh;">
+<div class="container mt-5" >
     <table class="table">
         <thead>
             <tr>

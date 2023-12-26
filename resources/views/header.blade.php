@@ -29,6 +29,12 @@
             position: relative;
         }
 
+        .wrapper{
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
         .glass-effect-content {
             position: absolute;
             top: 50%;
@@ -193,6 +199,12 @@
         .card-body{
             height: 12rem;
             overflow: hidden;
+        }
+
+        #name_container{
+            background: #fc937b9e;
+            border-radius: 12px;
+            font-size: 20px;
         }
     </style>
 </head>

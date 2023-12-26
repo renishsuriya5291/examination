@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 25, 2023 at 06:57 AM
+-- Generation Time: Dec 25, 2023 at 09:29 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -141,8 +141,8 @@ INSERT INTO `students` (`id`, `name`, `email`, `password`, `credits`, `created_a
 (5, 'name', 'demo2@gmail.com', 'demo2', 20, '2023-12-24 11:51:31', '2023-12-25 03:39:55'),
 (6, 'name', 'dfemo2@gmail.com', 'fdemo2', 10, '2023-12-24 18:46:27', '2023-12-24 18:46:27'),
 (7, 'name', 'dfemdo2@gmail.com', 'fddemo2', 0, '2023-12-24 18:46:41', '2023-12-24 18:46:41'),
-(8, 'hey', 'hey@gmail.com', 'hey', 10, '2023-12-24 18:49:15', '2023-12-25 05:56:45'),
-(9, 'df', 'fasdf@fasdf', 'asdfsdf', 0, '2023-12-24 18:53:07', '2023-12-25 05:53:46');
+(8, 'hey', 'hey@gmail.com', 'hey', 10, '2023-12-24 18:49:15', '2023-12-25 08:33:42'),
+(9, 'df', 'fasdf@fasdf', 'asdfsdf', 0, '2023-12-24 18:53:07', '2023-12-25 08:31:32');
 
 -- --------------------------------------------------------
 

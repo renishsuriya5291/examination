@@ -1,3 +1,4 @@
+</div>
 <footer class="container-fluid p-4 custom-footer" style="color: white;">
     <div class="text-center">
         <p>&copy; 2024 <span class="text-light">Scumeme CopyRight</span>. All Rights Reserved.</p>

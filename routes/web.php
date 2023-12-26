@@ -14,6 +14,8 @@ Route::post('/stu/login', [StudentController::class, 'loginFunc']);
 Route::post('/stu/update-credits', [StudentController::class, 'updateCredit']);
 Route::post('/stu/showResult', [StudentController::class, 'showResult']);
 Route::post('/stu/fetchCredit', [StudentController::class, 'fetchCredits']);
+Route::post('/stu/fetchTeachers', [StudentController::class, 'fetchTeachers']);
+Route::post('/stu/fetchTeachers/{id}', [StudentController::class, 'fetchTeachers']);
 
 
 // Super Admin Api's 
@@ -58,6 +60,16 @@ Route::get('/superadmin', function () {
 Route::get('/users', function () {
     return view('users');
 });
+
+Route::get("/logout",function(){
+    return view("logout");
+});
+
+Route::get("/teacher",function(){
+    return view("teacher");
+});
+
+Route::get('/teacher/{id}', [StudentController::class, 'showTeacher']);
 
 
 

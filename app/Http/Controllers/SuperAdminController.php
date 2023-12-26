@@ -32,6 +32,7 @@ class SuperAdminController extends Controller
                 $response = [
                     'email' => $existingUser->email,
                     'token' => $encryptedString,
+                    'userId' => $existingUser->id,
                     'role' => 'superadmin'
                 ];
                 return response()->json(['success' => true, 'message' => 'Login successful', 'User' => $response]);

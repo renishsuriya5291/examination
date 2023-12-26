@@ -41,6 +41,10 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         function submitForm() {
+            // Change button text to "Loading..."
+            var loginButton = document.querySelector('.button1');
+            loginButton.textContent = 'Loading...';
+
             var selectedRole = document.getElementById('userRole').value;
             var apiUrl;
 
@@ -76,30 +80,39 @@
                 .then(data => {
                     // Handle the API response here, you can redirect or show a success message
                     if (data.success) {
-                        // Store the email in localStorage
+                        // Store the email and user details in localStorage
                         localStorage.setItem('userEmail', formData.email);
                         localStorage.setItem('userToken', data.User.token);
                         localStorage.setItem('userId', data.User.userId);
                         localStorage.setItem('userRole', data.User.role);
 
-                        switch (data.User.role) {
-                            case 'admin':
-                                window.location.href = '/admin';
-                                break;
-                            case 'student':
-                                window.location.href = '/';
-                                break;
-                            case 'superadmin':
-                                window.location.href = '/superadmin';
-                                break;
-                            default:
-                                // Handle other roles or unexpected values
-                                console.error('Invalid user role:', data.User.role);
-                                break;
-                        }
+
+                        // Change button text to "Redirecting..."
+                        loginButton.textContent = 'Redirecting...';
+
+                        // Redirect to the appropriate page after 2 seconds
+                        setTimeout(() => {
+                            switch (data.User.role) {
+                                case 'admin':
+                                    window.location.href = '/admin';
+                                    break;
+                                case 'student':
+                                    window.location.href = '/';
+                                    break;
+                                case 'superadmin':
+                                    window.location.href = '/superadmin';
+                                    break;
+                                default:
+                                    // Handle other roles or unexpected values
+                                    console.error('Invalid user role:', data.User.role);
+                                    break;
+                            }
+                        }, 2000);
                     } else {
                         // Display an error message
                         alert('Login failed. ' + data.message);
+                        // Reset button text to "Login"
+                        loginButton.textContent = 'Login';
                     }
 
                     console.log('API Response:', data);
@@ -107,12 +120,16 @@
                 .catch(error => {
                     // Handle errors, show an error message or log the error
                     console.error('Error:', error);
+                    // Reset button text to "Login"
+                    loginButton.textContent = 'Login';
                 });
-
         }
+
+        // Add click event listener to the login button
         document.querySelector('.button1').addEventListener('click', submitForm);
     });
 </script>
+
 
 
 @include('footer')

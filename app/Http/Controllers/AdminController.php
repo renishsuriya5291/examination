@@ -32,6 +32,7 @@ class AdminController extends Controller
                 $response = [
                     'email' => $existingUser->email,
                     'token' => $encryptedString,
+                    'userId' => $existingUser->id,
                     'role' => 'admin'
                 ];
 

@@ -36,7 +36,6 @@
 
     </form>
 </div>
-
 <!-- Add this script to your HTML file, preferably just before the closing </body> tag -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -46,6 +45,10 @@
         // Add an event listener for the form submission
         form.addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the default form submission
+
+            // Change button text to "Loading..."
+            const submitButton = document.querySelector('.button1');
+            submitButton.textContent = 'Loading...';
 
             // Get form data
             const formData = {
@@ -68,14 +71,19 @@
                     if (data.success) {
                         // Store the email in localStorage
                         localStorage.setItem('userEmail', formData.email);
-                        localStorage.setItem('userToken', data.User.token);
+                        // Change button text to "Redirecting to Login screen"
+                        submitButton.textContent = 'Redirecting to Login Page...';
 
-                        // Redirect to another page
-                        window.location.href =
-                        '/login'; // Change the URL to the desired page
+                        // Redirect to another page after 2 seconds
+                        setTimeout(() => {
+                            window.location.href = '/login'; // Change the URL to the desired page
+                        }, 2000);
+
                     } else {
                         // Display an error message
-                        alert('Registration failed '+data.message);
+                        alert('Registration failed ' + data.message);
+                        // Reset button text to "Submit"
+                        submitButton.textContent = 'Submit';
                     }
 
                     console.log('API Response:', data);
@@ -83,6 +91,8 @@
                 .catch(error => {
                     // Handle errors, show an error message or log the error
                     console.error('Error:', error);
+                    // Reset button text to "Submit"
+                    submitButton.textContent = 'Submit';
                 });
         });
     });

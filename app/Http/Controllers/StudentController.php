@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Teachers;
 use Exception;
 use Illuminate\Http\Request;
 use App\Models\Student;
@@ -15,7 +16,7 @@ class StudentController extends Controller
     public function RegisterFunc(Request $request)
     {
         // Check if any of the required fields is missing
-        if ($request->input("name") == null || $request->input("email") == null || $request->input("password") == null ) {
+        if ($request->input("name") == null || $request->input("email") == null || $request->input("password") == null) {
             return response()->json(['success' => false, 'message' => 'All Fields Are required'], 401);
         }
 
@@ -31,9 +32,9 @@ class StudentController extends Controller
         $newUser->name = $request->input('name');
         $newUser->email = $request->input('email');
         $newUser->password = $request->input('password');
-        if($request->input('credits') != null){
+        if ($request->input('credits') != null) {
             $newUser->credits = intval($request->input('credits'));
-        }else{
+        } else {
             $newUser->credits = 0;
         }
 
@@ -41,7 +42,7 @@ class StudentController extends Controller
 
         $newUser->save();
 
-        return response()->json(["success" => true, "message" => "Registered Successfully!"]);
+        return response()->json(["success" => true, "message" => "Registered Successfully!", "User" => $newUser]);
     }
 
     public function loginFunc(Request $request)
@@ -69,7 +70,7 @@ class StudentController extends Controller
                 ];
 
                 return response()->json(['success' => true, 'message' => 'Login successful', 'User' => $response]);
-            }else{
+            } else {
                 return response()->json(['success' => false, 'message' => 'Invalid credentials'], 401);
             }
         } else {
@@ -78,19 +79,18 @@ class StudentController extends Controller
         }
     }
 
-
     public function updateCredit(Request $request)
     {
 
-        if($request->header('token') == null){
+        if ($request->header('token') == null) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
         $token = $request->header('token');
-        try{
+        try {
             $decryptedString = Crypt::decrypt($token);
 
-            $user = Student::where('email',$decryptedString )->first();
-    
+            $user = Student::where('email', $decryptedString)->first();
+
             if (!$user) {
                 return response()->json(['message' => 'Unauthorized'], 401);
             }
@@ -115,55 +115,99 @@ class StudentController extends Controller
             $user->save();
 
             return response()->json(['success' => true, 'message' => 'Credit updated successfully']);
-        }catch(Exception $e){
+        } catch (Exception $e) {
             return response()->json(['success' => false, 'message' => 'Something went wrong...']);
         }
     }
-    public function showResult(Request $request){
-        if($request->header('token') == null){
+
+    public function showResult(Request $request)
+    {
+        if ($request->header('token') == null) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
         $token = $request->header('token');
-        try{
+        try {
             $decryptedString = Crypt::decrypt($token);
 
             $user = Student::where('email', $decryptedString)->first();
-    
+
             if (!$user) {
                 return response()->json(['message' => 'Unauthorized'], 401);
             }
-            
-            if($user->credits > 0){
+
+            if ($user->credits > 0) {
                 return response()->json(['success' => true, 'message' => 'You can see your result']);
-            }else{
+            } else {
                 return response()->json(['success' => true, 'message' => "You don't have Enough Credits to view the result"]);
             }
-            
-        }catch(Exception $e){
+
+        } catch (Exception $e) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
     }
 
-
-    public function fetchCredits(Request $request){
-        if($request->header('token') == null){
+    public function fetchCredits(Request $request)
+    {
+        if ($request->header('token') == null) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
         $token = $request->header('token');
-        try{
+        try {
             $decryptedString = Crypt::decrypt($token);
 
             $user = Student::where('email', $decryptedString)->first();
-    
+
             if (!$user) {
                 return response()->json(['message' => 'Unauthorized'], 401);
             }
 
             return response()->json(['success' => true, 'credit' => $user->credits]);
 
-        }catch(Exception $e){
+        } catch (Exception $e) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
     }
+
+    public function fetchTeachers(Request $request)
+    {
+        if ($request->header('token') == null) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+        $token = $request->header('token');
+        try {
+            $decryptedString = Crypt::decrypt($token);
+
+            $user = Student::where('email', $decryptedString)->first();
+
+            if (!$user) {
+                return response()->json(['message' => 'Unauthorized'], 401);
+            }
+
+            if ($request->route("id") == null) {
+
+                $Teacher = Teachers::all();
+
+                return response()->json(['success' => true, 'data' => $Teacher]);
+            } else {
+                $teacher = Teachers::find($request->route("id"));
+
+                if ($teacher) {
+                    // Do something with the $teacher
+                    return response()->json(['success' => true, 'data' => $teacher]);
+                } else {
+                    // Handle the case where no teacher is found
+                    return response()->json(['success' => false, 'data' => 'Teacher not found'], 404);
+                }
+            }
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+    }
+
+    public function showTeacher($id)
+    {
+        return view('teachers.show', ['id' => $id]);
+    }
+
 
 }

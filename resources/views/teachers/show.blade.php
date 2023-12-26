@@ -190,6 +190,17 @@
             color: white !important;
         }
 
+        .card-body {
+            height: 12rem;
+            overflow: hidden;
+        }
+
+        #name_container {
+            background: #fc937b9e;
+            border-radius: 12px;
+            font-size: 20px;
+        }
+
         .wrapper {
             display: flex;
             flex-direction: column;
@@ -200,6 +211,11 @@
 
 <body>
     <!-- Include the navigation -->
+    <script>
+        var userEmail = localStorage.getItem('userEmail');
+        var userRole = localStorage.getItem('userRole');
+    </script>
+
     <div class="wrapper">
         <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
             <div class="d-flex nav-div">
@@ -222,7 +238,13 @@
                             <a class="nav-link" href="#">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Courses</a>
+                            <script>
+                                if (userRole == null) {
+                                    document.write(`<a class="nav-link" href="#"> Course </a>`)
+                                } else if (userRole == "student") {
+                                    document.write(`<a class="nav-link" href="/teacher"> Teachers </a>`)
+                                }
+                            </script>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Manit</a>
@@ -236,11 +258,19 @@
                         <li class="nav-item">
 
                             <script>
-                                var userEmail = localStorage.getItem('userEmail');
                                 if (userEmail == null) {
                                     document.write('<a href="/register" style="font-size: 24px;" class="btn btn-sm admin-button">Registration</a>');
                                 } else {
-                                    document.write('<a href="/results" style="font-size: 24px;" class="btn btn-sm admin-button">Show Results</a>');
+                                    if (userRole == "superadmin") {
+                                        document.write(
+                                            '<a href="/users" style="font-size: 24px;" class="btn btn-sm admin-button">Users</a>');
+                                    } else if (userRole == "admin") {
+                                        document.write(
+                                            '<a href="/users" style="font-size: 24px;" class="btn btn-sm admin-button">Users</a>');
+                                    } else {
+                                        document.write(
+                                            '<a href="/results" style="font-size: 24px;" class="btn btn-sm admin-button">Show Results</a>');
+                                    }
                                 }
                             </script>
                         </li>
@@ -269,42 +299,75 @@
                             <a class="nav-link" href="#">Contact Us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Examination</a>
+                            <a class="nav-link" id="name_container" href="#">
+                                <script>
+                                    if (localStorage.getItem("userRole") == null) {
+                                        document.write("Examination")
+                                    } else {
+                                        var userEmail = localStorage.getItem("userEmail")
+                                        var userRole = localStorage.getItem("userRole")
+                                        var username = userEmail.split('@')[0];
+                                        document.write(username)
+                                        document.write(" as ")
+                                        document.write(userRole)
+                                    }
+                                </script>
+                            </a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
 
+        <script>
+            var userEmail = localStorage.getItem('userEmail');
+            if (userEmail == null) {
+                window.location.href = '/login';
+            }
+        </script>
 
-        <div class="container mt-5 mb-5" style="height: 73vh;">
-            <h5>Please Make Payment to Buy a Credits and view the Result :</h5><br>
-            <h5 class="text-danger">Don't Refresh Or press back button</h5>
-            <br>
-            <form action="{{ route('razorpay.payment.callback') }}" method="POST">
-                <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="{{ config('razorpay.key_id') }}" data-amount="1000"
-                    data-currency="USD" data-order_id="{{ $orderId }}" data-buttontext="Pay Now" data-name="Scumeme"
-                    data-description="Payment for credits" data-image="Images/main.png" data-prefill.name="Scumeme"
-                    data-prefill.email="scumeme@gmail.com" data-prefill.contact="1234567890" data-theme.color="#F37254"
-                    data-style="btn btn-primary"></script>
-
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="hidden" name="userid" id="userid">
-                <input type="hidden" name="userToken" id="userToken">
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        // Retrieve user ID from localStorage
-                        var userId = localStorage.getItem('userId');
-                        var userToken = localStorage.getItem('userToken');
-                        console.log(userId);
-                        // Set the value of the hidden input field
-                        document.getElementById('userid').value = userId;
-                        document.getElementById('userToken').value = userToken;
-                    });
-                </script>
-            </form>
-
-
+        <div class="container mt-5 mb-5">
+            <div class="container mt-5 mb-5">
+                <div class="card">
+                    <h5 class="card-header" id="name">Loading...</h5>
+                    <div class="card-body">
+                        <h5 class="card-title" id="email"></h5>
+                        <p class="card-text" id="phone"></p>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
-    @include('footer')
+
+        <script>
+            var idFromLaravel = {{ $id }};
+
+            fetch(`http://localhost:8000/stu/fetchTeachers/${idFromLaravel}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'token': localStorage.getItem('userToken')
+                        // Include any other headers that your API requires
+                    },
+                    // Include any request body if required by your API
+                    // body: JSON.stringify({ key: 'value' }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Get the tbody element where the data will be inserted
+                    const name = document.getElementById('name');
+                    const phone = document.getElementById('phone');
+                    const email = document.getElementById('email');
+                    name.textContent = data.data.fullname;
+                    phone.textContent = data.data.phone;
+                    email.textContent = data.data.email;
+                    // Iterate through the data and create table rows
+                    console.log(data);
+
+
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        </script>
+
+        @include('footer')
