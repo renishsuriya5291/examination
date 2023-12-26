@@ -70,7 +70,7 @@
                     // Handle the API response here, you can redirect or show a success message
                     if (data.success) {
                         // Store the email in localStorage
-                        localStorage.setItem('userEmail', formData.email);
+                        // localStorage.setItem('userEmail', formData.email);
                         // Change button text to "Redirecting to Login screen"
                         submitButton.textContent = 'Redirecting to Login Page...';
 

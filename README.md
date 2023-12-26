@@ -2,7 +2,9 @@ Examination System
 
 ## command to run the program
 composer install
-php artisan migrate --seed  (for add example ids of admin and superadmin)
+
+php artisan migrate --seed  (for add example ids of admin and superadmin if table does not contain id if id present then it show duplicate entry error it is only for first time)
+
 php artisan serve
 
 ## Student
