@@ -46,7 +46,7 @@
         }
 
         // Fetch data from the API using POST method
-        fetch('http://localhost:8000/admin/users-list', {
+        fetch('{{ env('API_ENDPOINT') }}/admin/users-list', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -124,7 +124,7 @@
         const credits = editForm.querySelector('#exampleInputEmail1').value;
 
         // Send a POST request to the server
-        fetch('http://localhost:8000/superadmin/update-credits', {
+        fetch('{{ env('API_ENDPOINT') }}/superadmin/update-credits', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

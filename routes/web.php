@@ -16,6 +16,7 @@ Route::post('/stu/showResult', [StudentController::class, 'showResult']);
 Route::post('/stu/fetchCredit', [StudentController::class, 'fetchCredits']);
 Route::post('/stu/fetchTeachers', [StudentController::class, 'fetchTeachers']);
 Route::post('/stu/fetchTeachers/{id}', [StudentController::class, 'fetchTeachers']);
+Route::post('/stu/decreaseCredit', [StudentController::class, 'decreaseCredit']);
 
 
 // Super Admin Api's 

@@ -29,7 +29,7 @@
             position: relative;
         }
 
-        .wrapper{
+        .wrapper {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -40,6 +40,10 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+        }
+
+        #userTable {
+            display: none;
         }
 
         .glass-effect-buttons button {
@@ -60,7 +64,7 @@
             background-color: #ffffff;
             border-radius: 20px;
             padding-top: 10px;
-            padding-bottom: 10px;   
+            padding-bottom: 10px;
         }
 
         .button2 {
@@ -196,12 +200,12 @@
             color: white !important;
         }
 
-        .card-body{
+        .card-body {
             height: 12rem;
             overflow: hidden;
         }
 
-        #name_container{
+        #name_container {
             background: #fc937b9e;
             border-radius: 12px;
             font-size: 20px;

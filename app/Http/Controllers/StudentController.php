@@ -9,6 +9,7 @@ use App\Models\Student;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 
 
 class StudentController extends Controller
@@ -209,5 +210,49 @@ class StudentController extends Controller
         return view('teachers.show', ['id' => $id]);
     }
 
+    public function decreaseCredit(Request $request)
+    {
+        if ($request->header('token') == null) {
+            return response()->json(['success' => false, 'message' => 'Unauthorized'], 401);
+        }
+        $token = $request->header('token');
+        try {
+            $decryptedString = Crypt::decrypt($token);
+
+            $user = Student::where('email', $decryptedString)->first();
+
+            if (!$user) {
+                return response()->json(['success' => false, 'message' => 'Unauthorized'], 401);
+            }
+
+            $APP_CREDIT_VALUE = env('APP_CREDIT_VALUE');
+
+            // $number_of_credit_decrease = ;
+            $student = Student::where('email', $decryptedString)->first();
+
+            if ($student) {
+                if ($student->credits <= 0) {
+                    return response()->json(['success' => false, 'message' => 'Insufficient Credit'], 404);
+                } else {
+                    $final_value = $student->credits - $APP_CREDIT_VALUE;
+
+                    // Instead of using update, set the attribute and then save
+                    $student->credits = $final_value;
+                    $student->save();
+
+                    return response()->json(['success' => true, 'message' => 'Credit updated successfully', 'credit'=>$final_value]);
+                }
+
+            } else {
+                return response()->json(['success' => false, 'message' => 'not found'], 404);
+            }
+
+
+
+
+        } catch (Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Unauthorized'], 401);
+        }
+    }
 
 }

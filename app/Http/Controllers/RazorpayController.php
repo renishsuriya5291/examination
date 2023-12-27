@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Razorpay\Api\Api;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Config;
 
 
 class RazorpayController extends Controller
@@ -36,7 +37,15 @@ class RazorpayController extends Controller
         // Handle payment success callback
         // Update your database, mark the payment as successful, etc.
         // Make API request
-        $apiEndpoint = 'http://localhost:8000/stu/update-credits';
+        $apiEndpoint = env('API_ENDPOINT');
+
+        // Option 2: Using Config::get() method
+        // $apiEndpoint = Config::get('app.api_endpoint');
+
+        // Concatenate the endpoint with the specific route
+        $updateCreditsEndpoint = $apiEndpoint.'/stu/update-credits';
+
+        $apiEndpoint = $updateCreditsEndpoint;
 
         // Assuming you have the user ID and credit amount from your payment handling logic
         $userId = intval($request->input("userid")); // Replace with the actual user ID

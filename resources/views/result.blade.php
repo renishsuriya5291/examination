@@ -19,7 +19,7 @@
                 var userToken = localStorage.getItem('userToken');
 
                 // Fetch credits from the API
-                fetch('http://localhost:8000/stu/fetchCredit', {
+                fetch('{{ env('API_ENDPOINT') }}/stu/fetchCredit', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -74,7 +74,7 @@
         var userToken = localStorage.getItem('userToken');
 
         // Make API request with user token in the header
-        fetch('http://localhost:8000/stu/showResult', {
+        fetch('{{ env('API_ENDPOINT') }}/stu/showResult', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

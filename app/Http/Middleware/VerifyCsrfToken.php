@@ -27,6 +27,7 @@ class VerifyCsrfToken extends Middleware
         '/stu/fetchCredit',
         '/stu/fetchTeachers',
         '/stu/fetchTeachers/*',
-        '/teacher/*'
+        '/teacher/*',
+        '/stu/decreaseCredit'
     ];
 }

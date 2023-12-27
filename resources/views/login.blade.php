@@ -50,13 +50,13 @@
 
             switch (selectedRole) {
                 case 'Student':
-                    apiUrl = 'http://localhost:8000/stu/login';
+                    apiUrl = '{{ env('API_ENDPOINT') }}/stu/login';
                     break;
                 case 'SuperAdmin':
-                    apiUrl = 'http://localhost:8000/superadmin/login';
+                    apiUrl = '{{ env('API_ENDPOINT') }}/superadmin/login';
                     break;
                 case 'Admin':
-                    apiUrl = 'http://localhost:8000/admin/login';
+                    apiUrl = '{{ env('API_ENDPOINT') }}/admin/login';
                     break;
                 default:
                     // Handle default case if needed

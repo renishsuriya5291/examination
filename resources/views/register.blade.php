@@ -58,7 +58,7 @@
             };
 
             // Make a POST request to your API
-            fetch('http://localhost:8000/stu/register', {
+            fetch('{{ env('API_ENDPOINT') }}/stu/register', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

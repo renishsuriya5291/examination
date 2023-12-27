@@ -351,7 +351,7 @@
     <script>
         var idFromLaravel = {{ $id }};
 
-        fetch(`http://localhost:8000/stu/fetchTeachers/${idFromLaravel}`, {
+        fetch('{{ env('API_ENDPOINT') }}/stu/fetchTeachers/'+idFromLaravel, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
